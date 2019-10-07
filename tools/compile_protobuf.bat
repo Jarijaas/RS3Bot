@@ -1,0 +1,1 @@
+protoc --plugin=protoc-gen-grpc-cpp=F:/Repositories/grpc/.build-64/grpc_cpp_plugin.exe --plugin=protoc-gen-grpc-js=F:/Repositories/grpc/.build-64/grpc_node_plugin.exe --js_out=import_style=commonjs,binary:../js_proto/ --grpc-js_out=../js_proto/ --cpp_out=../QNXTHook/proto/ --grpc-cpp_out=../QNXTHook/proto/ --proto_path=../protobuf/ ../protobuf/world.proto

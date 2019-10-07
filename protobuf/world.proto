@@ -1,0 +1,246 @@
+syntax = "proto3";
+
+
+service RS3 {
+  rpc FindEntities(EntityRequest) returns (EntitiesResponse) {}
+  rpc Interact(InteractRequest) returns (Empty) {}
+  rpc MoveTo(Location) returns (Empty) {}
+  rpc GetInventory (InventoryTypeRequest) returns (Inventory) {}
+  rpc DoUIAction(UIAction) returns (Empty) {}
+  rpc DoItemInterfaceAction(UIAction) returns (Empty) {}
+  rpc BackpackItemAction(ItemAction) returns (Empty) {}
+  rpc GetProperty(IdRequest) returns (PropertyValue) {}
+  rpc IsUIWidgetVisible(IdRequest) returns (BoolResponse) {}
+  rpc GetControlledPlayer(Empty) returns (Entity) {}
+  rpc GetWidget(IdRequest) returns (Widget) {}
+
+  /* Events */
+  rpc OnChatMessage(Empty) returns (stream ChatMessage) {}
+  rpc OnCursorAction(Empty) returns (stream CursorActionMessage) {}
+  rpc OnInterfaceOpen(Empty) returns (stream InterfaceOpenMessage) {}
+}
+
+message IdRequest {
+  uint32 id = 1;
+}
+
+message CursorActionMessage {
+  int32 param1 = 1;
+  int32 param2 = 2;
+  int32 param3 = 3;
+}
+
+message ChatMessage {
+  uint32 type = 1;
+  string content = 2;
+}
+
+message InterfaceOpenMessage {
+  uint32 interfaceId = 1;
+}
+
+message BoolResponse {
+  bool value = 1;
+}
+
+message InventoryTypeRequest {
+  uint32 type = 1;
+}
+
+message Widget {
+  uint32 widgetId = 1;
+  string name = 2;
+  string hoverText = 3;
+  repeated string options = 4;
+}
+
+message PropertyValue {
+  uint32 value = 1;
+}
+
+enum PropertyType {
+  UnknownPropertyType = 0;
+  Health = 659;
+}
+
+enum UIWidgetType {
+  UnknownWidget = 0;
+
+  BankWithdrawItem = 0x2FA00E0;
+  BankDepositItem = 0x2FA001B;
+  BankTabAll = 0x2FA0080;
+  BankTab2 = 0x2FA0088;
+  BankTab3 = 0x2FA0090;
+  BankTab4 = 0x2FA0098;
+  BankTab5 = 0x2FA00A0;
+  BankTab6 = 0x2FA00A8;
+  BankTab7 = 0x2FA00B0;
+  BankTab8 = 0x2FA00B8;
+  BankTab9 = 0x2FA00C0;
+
+  LobbySelectTab = 0x38A0062;
+  LobbyPlayNow = 0x38A0083;
+  SelectWorld = 0x38E0051;
+
+  ChatOptionNext = 0x4A0000F;
+  ChatOption1 = 0x4A40005;
+  ChatOption2 = 0x4A4000A;
+  ChatOption3 = 0x4A4000F;
+  ChatOption4 = 0x4A40014;
+  ChatOption5 = 0x4A40019;
+
+  Regenerate = 0x596000B;
+  Retaliate = 0x5960037;
+  QuickPrayers = 0x5960010;
+
+  FollowerSelectLeftClickOption = 0x5960017;
+  FollowerAttack = 0x596001D;
+  InteractFollower = 0x596001E;
+  
+  DismissFollower = 0x596002D;
+  CallFollower = 0x596002E;
+  SummonPet = 0x5960031;
+  
+  SkillsItem = 0x5BA0007;
+
+  WorldMap = 0x5B90009;
+  RunEnergy = 0x5B9000B;
+  HomeTeleport = 0x5B90012;
+  Compass = 0x77F0002;
+
+  BackpackItem = 0x5C10005;
+
+  DepositAll = 0x2FA005B;
+  DepositAllBox = 0xB000B;
+
+  ActionBar1 = 0x59600FF;
+  ActionBar2 = 0x5960100;
+  ActionBar3 = 0x5960101;
+  ActionBar4 = 0x5960102;
+  ActionBarSlot1 = 0x596003E;
+  ActionBarSlot2 = 0x596004B;
+  ActionBarSlot3 = 0x5960058;
+  ActionBarSlot4 = 0x5960065;
+  ActionBarSlot5 = 0x5960072;
+  ActionBarSlot6 = 0x596007F;
+  ActionBarSlot7 = 0x596008C;
+  ActionBarSlot8 = 0x5960099;
+  ActionBarSlot9 = 0x59600A6;
+  ActionBarSlot10 = 0x59600B3;
+  ActionBarSlot11 = 0x59600C0;
+  ActionBarSlot12 = 0x59600CD;
+  ActionBarSlot13 = 0x59600DA;
+  ActionBarSlot14 = 0x59600E7;
+  ActionBarSlot15 = 0x59600F4;
+
+  Settings = 0x5990037;
+  ExitToLobby = 0x599003F;
+
+  ChatEnterMessage = 0x89004A;
+
+  BanditCamp = 0x4440008;
+  LunarIsle = 0x4440009;
+  AlKharid = 0x444000A;
+  Ardougne = 0x444000B;
+  Burthorpe = 0x444000C;
+  Catherby = 0x444000D;
+  DraynorVillage = 0x444000E;
+  Edgeville = 0x444000F;
+  Falador = 0x4440010;
+  Lumbdridge = 0x4440011;
+  PortSarim = 0x4440012;
+  SeersVillage = 0x4440013;
+  Taverley = 0x4440014;
+  Varrock = 0x4440015;
+  Menaphos = 0x4440016;
+  Yanille = 0x4440017;
+  Canifis = 0x4440018;
+  EaglesPeak = 0x4440019;
+  FremennikProvince = 0x444001A;
+  Karamja = 0x444001B;
+  Ooglog = 0x444001C;
+  Tirannw = 0x444001D;
+  Wilderness = 0x444001E;
+  Ashdale = 0x444001F;
+  Priffdinas = 0x4440020;
+}
+
+message EntityRequest {
+  oneof identifier {
+    uint32 id = 1;
+    string name = 2;
+  }
+}
+
+message UIAction {
+  oneof option {
+    uint32 optionId = 1;
+    string optionText = 2;
+  }
+  int32 param2 = 3;
+  UIWidgetType id = 4;
+}
+
+message ItemAction {
+  uint32 slot = 1;
+  string option = 2;
+}
+
+message Empty {}
+
+enum EntityType {
+  Object = 0;
+  NPC = 1;
+  Player = 2;
+  GroundItem = 3;
+  Object2 = 12;
+}
+
+message Entity {
+  uint32 id = 1;
+  EntityType type = 2;
+  string name = 3;
+  Location location = 4;
+
+  int32 health = 5;
+  int32 max_health = 6;
+  int32 level = 7;
+
+  bool is_interacting = 8;
+  
+  enum MovementType {
+    Standing = 0;
+    Walking = 2;
+    Running = 3;
+  }
+  MovementType mov_type = 9;
+  uint32 action_id = 10;
+  repeated string options = 11;
+  
+  bool is_controlled = 12;
+}
+
+message InteractRequest {
+  Entity entity = 1;
+  string option = 2;
+}
+
+message EntitiesResponse {
+  repeated Entity entities = 1;
+}
+
+message Location {
+  int32 tile_x = 1;
+  int32 tile_y = 2;
+}
+
+
+message Inventory {
+  message InventoryItem {
+    int32 id = 1;
+    int32 quantity = 2;
+    string name = 3;
+    int32 slot = 4;
+  }
+  repeated InventoryItem items = 1;
+}

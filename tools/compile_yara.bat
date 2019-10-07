@@ -1,0 +1,1 @@
+yarac64.exe ../yara-rules/chat.yar ../yara-rules/lobby.yar ../yara-rules/account.yar ../yara-rules/skills.yar ../yara-rules/inventory.yar ../yara-rules/world.yar ../QNXTHook/yara-rules.yarc
