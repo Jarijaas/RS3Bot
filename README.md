@@ -1,6 +1,6 @@
 Bot for Runescape NXT client I made long time ago. Uses yara patterns and code analysis using capstone to find reliably important functions across builds (may require some updates time to time). Provides protobuf API using gRPC for interacting with the game.
 
-Shouldn't be expected to work outside the box and contains a lot of absolute paths for my machine.
+Shouldn't be expected to work out of the box and contains a lot of absolute paths for my machine.
 
 Does not provide path traversal functionality.
 
